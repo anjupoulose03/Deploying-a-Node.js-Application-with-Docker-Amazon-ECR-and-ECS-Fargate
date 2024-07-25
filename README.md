@@ -105,6 +105,21 @@ CMD [ "node", "app.js" ]
 //  Document that the service listens on port 3000.// 
 EXPOSE 3000
 
+#### Create an IAM Role
+
+- Go to the AWS Management Console.
+- Navigate to the IAM Dashboard.
+- Click on "Roles" in the left sidebar, then click "Create role".
+- Choose "EC2" as the service that will use this role and click "Next: Permissions".
+- Attach the following policy by searching for and selecting "AmazonEC2ContainerRegistryFullAccess".
+- Click "Next: Tags" (you can skip adding tags) and then "Next: Review".
+- Give your role a name (e.g., ECRAccessRole) and click "Create role".
+- Attach the IAM Role to Your EC2 Instance
+- Go to the EC2 Dashboard in the AWS Management Console.
+- Select your running instance.
+- Click on "Actions", then "Security", and then "Modify IAM role".
+- Select the role you created (e.g., ECRAccessRole) from the dropdown and click "Update IAM role".
+
 #### Build and Push Docker Image to Amazon ECR
 
 #### Install AWS CLI:
@@ -135,7 +150,7 @@ docker push <your-aws-account-id>.dkr.ecr.<your-region>.amazonaws.com/simple-web
 - Click on "Clusters" and then "Create Cluster".
 - Select "Networking only" for Fargate.
 - Follow the steps to create the cluster.
--
+
 #### Create a Task Definition:
 
 - In the ECS console, go to "Task Definitions".
