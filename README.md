@@ -54,7 +54,7 @@ cd my-project
 
 npm init -y
 
-#### Prepare Your Application
+### Prepare Your Application
 
 #### Create the Node.js Application
 - Create a new directory for your project.
@@ -127,7 +127,7 @@ CMD [ "node", "app.js" ]
 
 EXPOSE 3000
 
-#### Create an IAM Role
+### 3. Create an IAM Role
 
 - Go to the AWS Management Console.
 - Navigate to the IAM Dashboard.
@@ -142,7 +142,7 @@ EXPOSE 3000
 - Click on "Actions", then "Security", and then "Modify IAM role".
 - Select the role you created (ECRAccessRole) from the dropdown and click "Update IAM role".
 
-#### Build and Push Docker Image to Amazon ECR
+### 4. Build and Push Docker Image to Amazon ECR
 
 #### Install AWS CLI:
 sudo yum install aws-cli -y
@@ -167,14 +167,14 @@ docker push <your-aws-account-id>.dkr.ecr.<your-region>.amazonaws.com/simple-web
 
 #### Set Up Amazon ECS with Fargate
 
-#### Create an ECS Cluster:
+### 5. Create an ECS Cluster:
 
 - Go to the ECS console.
 - Click on "Clusters" and then "Create Cluster".
 - Select "Networking only" for Fargate.
 - Follow the steps to create the cluster.
 
-#### Create a Task Definition:
+### 5.  Create a Task Definition:
 
 - In the ECS console, go to "Task Definitions".
 - Click "Create new Task Definition".
@@ -191,7 +191,7 @@ docker push <your-aws-account-id>.dkr.ecr.<your-region>.amazonaws.com/simple-web
 - Task Memory: 1GB
 - Task CPU: 0.5 vCPU
 
-#### Create a Service:
+### 6. Create a Service:
 
 - In the ECS console, go to "Clusters".
 - Select your cluster.
@@ -199,10 +199,10 @@ docker push <your-aws-account-id>.dkr.ecr.<your-region>.amazonaws.com/simple-web
 - Select "Fargate" as the launch type.
 - Configure the service with the task definition you created, desired number of tasks, VPC, and subnets.
 
-#### Verify and Test
+### 7. Verify and Test
 Check ECS Tasks: Ensure that your ECS tasks are running correctly by checking the ECS console.
 
-#### Commands used in the process
+### 8. Commands used in the whole project for debugging
 
 - Verify the Image: sudo docker images
 - Run the Container: sudo docker run -d -p 80:80 new-project
