@@ -152,19 +152,21 @@ sudo yum install aws-cli -y
 aws configure
 
 #### Authenticate Docker to Your Amazon ECR Registry:
-aws ecr get-login-password --region <your-region> | docker login --username AWS --password-stdin <your-aws-account-id>.dkr.ecr.<your-region>.amazonaws.com
+
+aws ecr get-login-password --region &lt;your-region&gt; | docker login --username AWS --password-stdin &lt;your-aws-account-id&gt;.dkr.ecr.&lt;your-region&gt;.amazonaws.com
+
 
 #### Create an ECR Repository:
 aws ecr create-repository --repository-name simple-web-app
 
-#### Build Your Docker Image:
-docker build -t simple-web-app .
+#### Build your Docker image
+sudo docker build -t my-app .
 
-#### Tag Your Docker Image:
-docker tag simple-web-app:latest <your-aws-account-id>.dkr.ecr.<your-region>.amazonaws.com/simple-web-app:latest
+##### Tag the Docker image
+sudo docker tag my-app:latest &lt;your-aws-account-id&gt;.dkr.ecr.&lt;your-region&gt;.amazonaws.com/my-app:latest
 
-#### Push the Docker Image to ECR:
-docker push <your-aws-account-id>.dkr.ecr.<your-region>.amazonaws.com/simple-web-app:latest
+#### Push the Docker image to your ECR repository
+sudo docker push &lt;your-aws-account-id&gt;.dkr.ecr.&lt;your-region&gt;.amazonaws.com/my-app:latest
 
 #### Set Up Amazon ECS with Fargate
 
