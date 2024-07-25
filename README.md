@@ -22,23 +22,24 @@ Access the Deployed Application
 ### 1. Setting Up the Environment
 
 #### Create an EC2 Instance
-1. Launch an EC2 instance.
-2. Choose Amazon Linux 2 AMI (HVM), SSD Volume Type.
-3. Select an instance type (t2.micro).
-4. Configure instance details.
-5. Add storage.
-6. Configure security group to allow SSH (port 22) and application port ( docker : port 3000).
-7. Review and launch.
-9. Create a new key pair or use an existing one to connect to your instance.
+- Launch an EC2 instance.
+-  Choose Amazon Linux 2 AMI (HVM), SSD Volume Type.
+- Select an instance type (t2.micro).
+-  Configure instance details.
+-  Add storage.
+-  Configure security group to allow SSH (port 22) and application port ( docker : port 3000).
+-  Review and launch.
+-  Create a new key pair or use an existing one to connect to your instance.
 
 #### Connect to Your EC2 Instance
-1. Use EC2 Instance Connect or an SSH client to connect to your instance.
+-  Use EC2 Instance Connect or an SSH client to connect to your instance.
 
 #### Update Package Index:
 sudo yum update -y
 
 #### Install Node.js and npm:
 curl -sL https://rpm.nodesource.com/setup_16.x | sudo bash -
+
 sudo yum install -y nodejs
 
 #### Verify Installation:
@@ -48,7 +49,9 @@ npm -v
 
 #### Create a directory and initialize npm
 mkdir my-project
+
 cd my-project
+
 npm init -y
 
 #### Prepare Your Application
@@ -61,49 +64,67 @@ npm init -y
 #### Install Express.js:
 npm install express
 
-Create an app.js file with the following content:
+#### reate an app.js file with the following content:
 nano app.js
+***code
 
 const express = require('express');
+
 const app = express();
-const port = 3000;
-app.get('/', (req, res) => res.send('Hello, World!'));
-app.listen(port, () => console.log(`App running on port ${port}`));
 
-Install Express.js:
+app.get('/', (req, res) => {
 
-npm install express
+    res.send('Hello, World!');
+    
+});
+
+const port = process.env.PORT || 3000;
+
+app.listen(port, () => {
+
+    console.log(`App running on port ${port}`);
+    
+});
 
 ### 2. Install Docker on EC2 Instance
-'''bash
-sudo yum update -y
-sudo amazon-linux-extras install docker
-sudo service docker start
-sudo usermod -a -G docker ec2-user
 
+sudo yum update -y
+
+sudo amazon-linux-extras install docker
+
+sudo service docker start
+
+sudo usermod -a -G docker ec2-user
 
 #### In the project directory, create a file named Dockerfile with the following content:
 nano Dockerfile
 
 // Use the official Node.js image.// 
+
 FROM node:14
 
 //  Create and change to the app directory.// 
+
 WORKDIR /usr/src/app
 
 //  Copy application dependency manifests to the container image.// 
+
 COPY package*.json ./
 
 //  Install dependencies.// 
+
 RUN npm install
 
 // Copy local code to the container image.// 
+
 COPY . .
 
 // Run the web service on container startup.// 
+
 CMD [ "node", "app.js" ]
 
 //  Document that the service listens on port 3000.// 
+
 EXPOSE 3000
 
 #### Create an IAM Role
@@ -119,12 +140,13 @@ EXPOSE 3000
 - Go to the EC2 Dashboard in the AWS Management Console.
 - Select your running instance.
 - Click on "Actions", then "Security", and then "Modify IAM role".
-- Select the role you created (e.g., ECRAccessRole) from the dropdown and click "Update IAM role".
+- Select the role you created (ECRAccessRole) from the dropdown and click "Update IAM role".
 
 #### Build and Push Docker Image to Amazon ECR
 
 #### Install AWS CLI:
 sudo yum install aws-cli -y
+
 #### Configure AWS CLI:
 aws configure
 
