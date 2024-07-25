@@ -64,9 +64,10 @@ npm init -y
 #### Install Express.js:
 npm install express
 
-#### reate an app.js file with the following content:
+#### create an app.js file with the following content:
 nano app.js
-***code
+
+***code***
 
 const express = require('express');
 
