@@ -43,6 +43,7 @@ sudo yum install -y nodejs
 
 #### Verify Installation:
 node -v
+
 npm -v
 
 #### Create a directory and initialize npm
